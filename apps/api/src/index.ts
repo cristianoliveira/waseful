@@ -1,11 +1,13 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
+import cors from "cors";
 const app = express();
 const prisma = new PrismaClient();
 
 const port = process.env.PORT || 3000;
 
 // parse incoming requests data as JSON
+app.use(cors());
 app.use(express.json());
 
 // define a route handler for the root path
@@ -28,7 +30,6 @@ app.get("/feedbacks", async (_, res) => {
   res.json(feedbacks);
 });
 
-// start the server on port 3000
 app.listen(port, () => {
-  console.log(`PORT ${port}`);
+  console.log(`Running on ${port}`);
 });
