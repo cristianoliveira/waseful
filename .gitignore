@@ -1,4 +1,3 @@
-
 # Logs
 logs
 *.log
@@ -43,3 +42,8 @@ typings/
 .env
 .env.dev
 .env.live
+
+
+# Node build output
+dist/
+build/
