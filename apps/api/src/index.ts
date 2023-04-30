@@ -1,5 +1,5 @@
 import express from "express";
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 const app = express();
 const prisma = new PrismaClient();
 
@@ -11,9 +11,8 @@ app.use(express.json());
 // define a route handler for the root path
 app.post("/feedbacks", async (req, res) => {
   const { is_useful: isUseful, reason, content } = req.body;
-  console.log({ isUseful, reason, content });
 
-  const feedback = await prisma.feedback.create({
+  const feedback = await prisma.feedbacks.create({
     data: {
       content,
       reason,
@@ -25,7 +24,7 @@ app.post("/feedbacks", async (req, res) => {
 });
 
 app.get("/feedbacks", async (_, res) => {
-  const feedbacks = await prisma.feedback.findMany();
+  const feedbacks = await prisma.feedbacks.findMany();
   res.json(feedbacks);
 });
 

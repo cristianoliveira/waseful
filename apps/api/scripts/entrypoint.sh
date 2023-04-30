@@ -1,8 +1,8 @@
 #!/bin/sh
 #
 
-if [ ! -f ".initialized" ]; then
-    touch .initialized
+if [ ! -f "dist/.initialized" ]; then
+    touch dist/.initialized
     npm run db:setup
 fi
 
