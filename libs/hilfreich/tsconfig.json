@@ -6,6 +6,10 @@
     /* Specify module code generation: 'none', commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
+    // see https://github.com/developit/microbundle/issues/857
+    "jsxFactory": "",
+    "jsxFragmentFactory": "",
+
     "moduleResolution": "node",
     "esModuleInterop": true,
     "rootDir": "src/",
