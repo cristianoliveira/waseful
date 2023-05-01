@@ -12,12 +12,11 @@ app.use(express.json());
 
 // define a route handler for the root path
 app.post("/feedbacks", async (req, res) => {
-  const { is_useful: isUseful, reason, content } = req.body;
+  const { is_useful: isUseful, sessionID } = req.body;
 
   const feedback = await prisma.feedbacks.create({
     data: {
-      content,
-      reason,
+      sessionID,
       isUseful,
     },
   });

@@ -7,16 +7,23 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
-  relationMode = "prisma"
+    url      = env("DATABASE_URL")
+    relationMode = "prisma"
 }
 
 model feedbacks {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  reason    String?
-  content   String?
-  isUseful  Boolean  @default(false)
+  sessionID  String  @unique @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    isUseful  Boolean  @default(false)
 }
 
+model feedback_details {
+  sessionID  String  @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    reason    String
+    content   String
+}

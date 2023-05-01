@@ -4,12 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "nx run-many -t build",
+    "start": "nx serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Cristian Oliveira",
   "license": "ISC",
   "workspaces": [
-    "apps/docs",
-    "packages/hilchfrei"
-  ]
+    "apps/api",
+    "libs/hilchfrei"
+  ],
+  "devDependencies": {
+    "nx": "16.0.1",
+    "nx-cloud": "latest"
+  }
 }
