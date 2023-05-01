@@ -8,12 +8,13 @@
   "umd:main": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact build",
+    "build": "tsc && npm run build:lib && npm run build:widget",
     "build:widget": "microbundle build",
     "build:lib": "microbundle build -i src/Widget.tsx",
     "serve": "cross-env NODE_OPTIONS=--openssl-legacy-provider preact watch",
     "lint": "eslint '{src,tests}/**/*.{ts,tsx}'",
-    "test": "jest"
+    "test": "jest",
+    "tsc": "tsc"
   },
   "files": [
     "dist"

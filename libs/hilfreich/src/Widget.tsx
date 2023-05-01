@@ -1,4 +1,4 @@
-import { h, VNode } from "preact";
+import { h } from "preact";
 import uuidv4 from "uuid/dist/v4";
 
 import "./styles.css";
@@ -13,10 +13,7 @@ type WidgetProps = {
   sessionID?: string;
 };
 
-export default function Widget({
-  sessionID = uuidv4(),
-  onVote,
-}: WidgetProps): VNode {
+export default function Widget({ sessionID = uuidv4(), onVote }: WidgetProps) {
   return (
     <div>
       <button

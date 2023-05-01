@@ -8,10 +8,10 @@
     "node": "18.x"
   },
   "scripts": {
-    "build": "tsc --build --verbose ",
+    "build": "tsc --build --verbose",
     "start": "tsc && node dist/index.js",
     "serve": "nodemon src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint '{src,tests}/**/*.{ts,tsx}'",
     "db:setup": "prisma generate",
     "db:migrate": "prisma db push"
   },
