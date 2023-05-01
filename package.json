@@ -6,13 +6,13 @@
   "scripts": {
     "build": "nx run-many -t build",
     "start": "nx serve",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nx run-many -t test"
   },
   "author": "Cristian Oliveira",
   "license": "ISC",
   "workspaces": [
     "apps/api",
-    "libs/hilchfrei"
+    "libs/hilfreich"
   ],
   "devDependencies": {
     "nx": "16.0.1",
