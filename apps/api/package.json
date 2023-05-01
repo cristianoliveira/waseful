@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc --build --verbose ",
     "start": "tsc && node dist/index.js",
-    "dev": "nodemon src/index.ts",
+    "serve": "nodemon src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:setup": "prisma generate",
     "db:migrate": "prisma db push"
@@ -27,8 +27,6 @@
     "@types/express": "^4.17.17",
     "@types/node": "^18.16.3",
     "nodemon": "^2.0.22",
-    "prisma": "^4.13.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.0.4"
+    "prisma": "^4.13.0"
   }
 }
