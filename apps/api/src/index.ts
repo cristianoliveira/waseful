@@ -1,5 +1,5 @@
 import express from "express";
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import cors from "cors";
 const app = express();
 const prisma = new PrismaClient();
@@ -14,14 +14,29 @@ app.use(express.json());
 app.post("/feedbacks", async (req, res) => {
   const { is_useful: isUseful, sessionID } = req.body;
 
-  const feedback = await prisma.feedbacks.create({
-    data: {
-      sessionID,
-      isUseful,
-    },
-  });
+  try {
+    const feedback = await prisma.feedbacks.create({
+      data: {
+        sessionID,
+        isUseful,
+      },
+    });
 
-  res.json(feedback);
+    res.json(feedback);
+  } catch (err) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      if (err.code === "P2002") {
+        return res
+          .status(409)
+          .json({ status: 409, message: "This session has already voted." });
+      }
+    }
+
+    res.status(500).json({
+      status: 500,
+      message: `Something went wrong reason: ${err.message}`,
+    });
+  }
 });
 
 app.get("/feedbacks", async (_, res) => {
