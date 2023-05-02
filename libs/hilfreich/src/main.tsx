@@ -7,11 +7,11 @@ import Widget, { FeedbackVote } from "./Widget";
 const _habitat = habitat(Widget);
 
 _habitat.render({
-  selector: "#hilfreich-host",
+  selector: "#hilfreich",
   clean: true,
   defaultProps: {
     onVote: ({ isUseful, sessionID }: FeedbackVote) => {
-      api.feedbackVote({
+      return api.feedbackVote({
         sessionID,
         isUseful,
       });

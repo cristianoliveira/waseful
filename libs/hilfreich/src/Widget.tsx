@@ -1,5 +1,4 @@
-import { h } from "preact";
-import uuidv4 from "uuid/dist/v4";
+import { v4 as uuidv4 } from "uuid";
 
 import "./styles.css";
 

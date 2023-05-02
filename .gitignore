@@ -47,3 +47,6 @@ typings/
 # Node build output
 dist/
 build/
+
+dist-ssr/
+*.local

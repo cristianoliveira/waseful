@@ -1,4 +1,3 @@
-import { h } from "preact";
 import { render, screen } from "@testing-library/preact";
 
 import Widget from "./Widget";

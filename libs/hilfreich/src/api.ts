@@ -1,4 +1,4 @@
-import fetch, { UnfetchResponse } from "unfetch";
+import fetch from "unfetch";
 const API_URL = "http://localhost:3000";
 
 type Feedback = {
@@ -14,6 +14,6 @@ export const api = {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(args),
-    }).then((res: UnfetchResponse) => res.json());
+    }).then((res) => res.json());
   },
 };
