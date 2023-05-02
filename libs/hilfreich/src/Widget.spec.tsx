@@ -1,9 +1,10 @@
+import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/preact";
 
 import Widget from "./Widget";
 
 describe("Feedback Widget", () => {
-  const defaultProps = { onVote: jest.fn() };
+  const defaultProps = { onVote: vi.fn() };
 
   it("renders buttons to vote", () => {
     const props = { ...defaultProps };

@@ -2,7 +2,7 @@
 
 ## CLI Commands
 
-``` bash
+```bash
 # install dependencies
 npm install
 
@@ -18,7 +18,7 @@ npm run build:lib
 # lint the project with eslint to find code style issues
 npm run lint
 
-# run tests with jest and enzyme
+# run tests with vitest
 npm run test
 ```
 
