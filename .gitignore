@@ -50,3 +50,6 @@ build/
 
 dist-ssr/
 *.local
+
+# Generic ignore pattern
+__*
