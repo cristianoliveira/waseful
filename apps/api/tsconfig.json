@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
-    "module": "esnext",
-    "moduleResolution": "nodenext",
-    "allowImportingTsExtensions": true,
-    "emitDeclarationOnly": true,
+    "module": "commonjs",
 
     "rootDir": "src/" /* Specify the root folder within your source files. */,
     "outDir": "dist/" /* Specify an output folder for all emitted files. */,

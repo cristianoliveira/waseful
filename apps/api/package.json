@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
-  "type": "module",
   "engines": {
     "node": "18.x"
   },
@@ -26,6 +25,8 @@
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/node": "^18.16.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4",
     "nodemon": "^2.0.22",
     "prisma": "^4.13.0"
   }

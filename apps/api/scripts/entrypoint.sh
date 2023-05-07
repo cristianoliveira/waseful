@@ -1,5 +1,6 @@
 #!/bin/sh
-#
+
+npm install
 
 if [ ! -f "dist/.initialized" ]; then
     touch dist/.initialized
@@ -8,4 +9,6 @@ fi
 
 npm run db:migrate
 
-npm start
+npm run build
+
+npm run start
