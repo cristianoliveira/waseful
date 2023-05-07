@@ -7,7 +7,7 @@
     "node": "18.x"
   },
   "scripts": {
-    "build": "tsc --build --verbose",
+    "build": "npm run db:setup && tsc --build --verbose",
     "start": "tsc && node dist/index.js",
     "serve": "nodemon src/index.ts",
     "lint": "eslint '{src,tests}/**/*.{ts,tsx}'",
