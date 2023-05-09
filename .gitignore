@@ -53,3 +53,9 @@ dist-ssr/
 
 # Generic ignore pattern
 __*
+
+
+# Ignore terraform related files
+.terraform
+*.tfstate
+*.tfvars

@@ -1,0 +1,9 @@
+aws_ecr_url = ""
+aws_ecr_repo_name = ""
+aws_region = "eu-west-1"
+aws_profile = ""
+aws_access_key = ""
+aws_secret_key = ""
+
+app_image_tag = "app-v0.0.1"
+app_db_url = "mysql://root:root_password@db:3306/hilchfrei"
