@@ -6,6 +6,9 @@ variable "instance_type" {
 variable "aws_region" {
   default = "eu-west-1"
 }
+
+variable "aws_iam_user_arn" {}
+
 variable "aws_ecr_url" {}
 variable "aws_ecr_repo_name" {}
 variable "aws_profile" {
@@ -14,6 +17,10 @@ variable "aws_profile" {
 variable "app_image_tag" {}
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
+
+variable "app_domain_name" {
+  default = "cristianoliveira.dev"
+}
 
 variable "app_db_url" {
   sensitive = true
