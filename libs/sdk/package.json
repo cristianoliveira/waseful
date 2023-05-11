@@ -1,5 +1,5 @@
 {
-  "name": "hilfreich",
+  "name": "@waseful/sdk",
   "private": true,
   "version": "0.0.0",
   "source": "src/index.ts",
@@ -9,7 +9,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint '{src,tests}/**/*.{ts,tsx}'",
-    "test": "vitest",
+    "test": "vitest run",
     "tsc": "tsc"
   },
   "dependencies": {

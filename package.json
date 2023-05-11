@@ -1,5 +1,5 @@
 {
-  "name": "hilfreich",
+  "name": "waseful-mono",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,14 +11,14 @@
     "build": "nx run-many -t build",
     "test": "nx run-many -t test",
     "lint": "nx run-many -t lint",
-    "api:serve": "nx run api:serve",
-    "hfh:serve": "nx run hilfreich:serve"
+    "api:serve": "nx run @waseful/api:serve",
+    "hfh:serve": "nx run @waseful/sdk:serve"
   },
   "author": "Cristian Oliveira",
   "license": "ISC",
   "workspaces": [
     "apps/api",
-    "libs/hilfreich"
+    "libs/sdk"
   ],
   "devDependencies": {
     "@types/jest": "^27.0.2",
