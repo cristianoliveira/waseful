@@ -27,6 +27,8 @@ resource "aws_s3_bucket_public_access_block" "assets_bucket_public_access" {
 }
 
 # S3 bucket policy
+#
+# "AWS": "${var.aws_iam_user_arn}"
 resource "aws_s3_bucket_policy" "assets_bucket_policy" {
   bucket = aws_s3_bucket.assets_bucket.id
 
