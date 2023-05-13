@@ -61,3 +61,5 @@ __*
 *.tfvars
 
 .ssh/
+
+.parcel-cache
