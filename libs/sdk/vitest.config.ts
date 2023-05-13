@@ -1,12 +1,10 @@
-import { defineConfig, mergeConfig } from "vitest/config";
-import viteConfig from "./vite.config";
+import { defineConfig } from "vitest/config";
+import preact from "@preact/preset-vite";
 
-export default mergeConfig(
-  viteConfig,
-  defineConfig({
-    test: {
-      environment: "jsdom",
-      setupFiles: ["./vitest.setup.ts"],
-    },
-  })
-);
+export default defineConfig({
+  test: {
+    environment: "jsdom",
+    setupFiles: ["./vitest.setup.ts"],
+  },
+  plugins: [preact()],
+});

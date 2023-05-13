@@ -2,18 +2,30 @@
   "name": "@waseful/sdk",
   "private": true,
   "version": "0.0.0",
-  "source": "src/index.ts",
+  "source": "src/sdk.ts",
+  "lib": "dist/lib.js",
+  "web": "dist/sdk.js",
+  "targets": {
+    "web": {
+      "outputFormat": "global",
+      "distDir": "./dist"
+    },
+    "lib": {
+      "outputFormat": "commonjs",
+      "distDir": "./dist"
+    }
+  },
   "scripts": {
-    "serve": "vite",
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "serve": "parcel ./index.html --https -p 8081",
+    "dev": "npm run serve",
+    "build": "parcel build",
     "lint": "eslint '{src,tests}/**/*.{ts,tsx}'",
     "test": "vitest run",
     "tsc": "tsc"
   },
   "dependencies": {
     "preact": "^10.13.1",
+    "preact-habitat": "^3.3.0",
     "unfetch": "^4.2.0",
     "uuid": "^9.0.0"
   },
@@ -24,8 +36,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/uuid": "^9.0.1",
     "jsdom": "^20.0.3",
-    "preact-habitat": "^3.3.0",
-    "vite": "^4.3.2",
+    "parcel": "^2.8.3",
     "vitest": "^0.30.1"
   },
   "eslintConfig": {

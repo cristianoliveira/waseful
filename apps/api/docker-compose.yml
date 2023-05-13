@@ -13,7 +13,7 @@ services:
   app:
     build: .
     ports:
-      - "8080:3000"
+      - "3000:3000"
     environment:
       PORT: 3000
       DATABASE_URL: mysql://root:root_password@db:3306/hilchfrei
