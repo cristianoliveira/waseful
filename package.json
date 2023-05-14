@@ -12,6 +12,7 @@
     "test": "nx run-many -t test",
     "lint": "nx run-many -t lint",
     "api:serve": "nx run @waseful/api:serve",
+    "api:db:migrate": "nx run @waseful/api:db:migrate",
     "sdk:serve": "nx run @waseful/sdk:serve"
   },
   "author": "Cristian Oliveira",

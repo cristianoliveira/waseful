@@ -1,6 +1,7 @@
 import express from "express";
 import { Prisma, PrismaClient } from "@prisma/client";
 import cors from "cors";
+import * as reasons from "./handlers/reasons";
 const app = express();
 const prisma = new PrismaClient();
 
@@ -25,7 +26,7 @@ app.post("/feedbacks", async (req, res) => {
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
         return res
-          .status(408)
+          .status(409)
           .json({ status: 409, message: "This session has already voted." });
       }
     }
@@ -41,5 +42,7 @@ app.get("/feedbacks", async (_, res) => {
   const feedbacks = await prisma.feedbacks.findMany();
   res.json(feedbacks);
 });
+
+app.post(reasons.endpoint, reasons.post);
 
 export default app;
