@@ -3,7 +3,7 @@ type Feedback = {
   isUseful: boolean;
 };
 
-type ReasonAnswer = {
+type FeedbackReason = {
   sessionID: string;
   reason: Reason;
   moreInfo: string;
@@ -11,11 +11,11 @@ type ReasonAnswer = {
 
 type WasefulApi = {
   postFeedback: (args: Feedback) => Promise<void>;
-  postReason: (args: ReasonAnswer) => Promise<void>;
+  postReason: (args: FeedbackReason) => Promise<void>;
 };
 
 type OnVoteCallback = (opts: Feedback) => void;
-type OnReasonSubmit = (opts: ReasonAnswer) => void;
+type OnReasonSubmit = (opts: FeedbackReason) => void;
 
 type Waseful = {
   render: (opts: {

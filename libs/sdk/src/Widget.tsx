@@ -7,7 +7,7 @@ import ReasonsForm from "./components/ReasonsForm";
 
 type WidgetProps = {
   onVote: (vote: Feedback) => void;
-  onReasonSubmit: (reasons: ReasonAnswer) => void;
+  onReasonSubmit: (reasons: FeedbackReason) => void;
   sessionID?: string;
 };
 

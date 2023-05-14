@@ -10,7 +10,7 @@ enum Reason {
   other = "other",
 }
 
-type onReasonSubmit = (reason: ReasonAnswer) => void;
+type onReasonSubmit = (reason: FeedbackReason) => void;
 
 type ReasonsFormProps = {
   sessionID: string;

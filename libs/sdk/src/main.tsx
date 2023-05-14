@@ -17,7 +17,7 @@ export const waseful: Waseful = {
           onVote?.(postFeedback);
         },
 
-        onReasonSubmit: async (reasons: ReasonAnswer) => {
+        onReasonSubmit: async (reasons: FeedbackReason) => {
           await apiClient.postReason(reasons);
         },
       },

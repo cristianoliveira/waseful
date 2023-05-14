@@ -10,6 +10,7 @@ class ApiError extends Error {
 
 export const api = {
   postFeedback: async (args: Feedback): Promise<Feedback> => {
+    // eslint-disable-next-line
     return fetch(`${API_URL}\/feedbacks`, {
       method: "POST",
       headers: {
@@ -25,7 +26,8 @@ export const api = {
     });
   },
 
-  postReason: async (args: ReasonAnswer): Promise<any> => {
+  postReason: async (args: FeedbackReason): Promise<FeedbackReason> => {
+    // eslint-disable-next-line
     return fetch(`${API_URL}\/reasons`, {
       method: "POST",
       headers: {
