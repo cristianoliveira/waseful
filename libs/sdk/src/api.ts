@@ -1,5 +1,5 @@
 import fetch from "unfetch";
-const API_URL = "http://localhost:3000";
+const { API_URL } = process.env;
 
 type Feedback = {
   sessionID: string;
@@ -15,7 +15,7 @@ class ApiError extends Error {
 
 export const api = {
   feedbackVote: async (args: Feedback): Promise<Feedback> => {
-    return fetch(`${API_URL}/feedbacks`, {
+    return fetch(`${API_URL}\/feedbacks`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

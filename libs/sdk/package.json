@@ -15,6 +15,9 @@
       "distDir": "./dist"
     }
   },
+  "alias": {
+    "preact/jsx-dev-runtime": "preact/jsx-runtime"
+  },
   "scripts": {
     "serve": "parcel ./index.html --https -p 8081",
     "dev": "npm run serve",

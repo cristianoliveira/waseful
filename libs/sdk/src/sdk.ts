@@ -6,4 +6,4 @@ declare global {
   }
 }
 
-window.waseful = waseful;
+self.waseful = waseful;

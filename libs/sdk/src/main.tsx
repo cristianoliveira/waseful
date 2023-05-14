@@ -1,5 +1,4 @@
 import habitat from "preact-habitat";
-1;
 import { api } from "./api";
 
 import Widget, { FeedbackVote } from "./Widget";
