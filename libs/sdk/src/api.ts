@@ -26,19 +26,18 @@ export const api = {
   },
 
   postReason: async (args: ReasonAnswer): Promise<any> => {
-    console.log("@@@@@@ args: ", args);
-    // return fetch(`${API_URL}\/reasons`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(args),
-    // }).then((res) => {
-    //   if (!res.ok) {
-    //     throw new ApiError(`${res.statusText} (${res.status})`);
-    //   }
+    return fetch(`${API_URL}\/reasons`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(args),
+    }).then((res) => {
+      if (!res.ok) {
+        throw new ApiError(`${res.statusText} (${res.status})`);
+      }
 
-    //   return res.json();
-    // });
+      return res.json();
+    });
   },
 };
