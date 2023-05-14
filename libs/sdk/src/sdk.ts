@@ -1,4 +1,4 @@
-import { waseful, Waseful } from "./main";
+import { waseful } from "./main";
 
 declare global {
   interface Window {

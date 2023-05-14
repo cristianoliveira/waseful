@@ -1,26 +1,9 @@
 import habitat from "preact-habitat";
 import { api } from "./api";
 
-import Widget, { FeedbackVote } from "./Widget";
+import Widget from "./Widget";
 
 const widget = habitat(Widget);
-
-export type WasefulApi = {
-  feedbackVote: (opts: {
-    sessionID: string;
-    isUseful: boolean;
-  }) => Promise<void>;
-};
-
-type OnVoteCallback = (opts: { isUseful: boolean }) => void;
-
-export type Waseful = {
-  render: (opts: {
-    selector: string;
-    apiClient: WasefulApi;
-    onVote?: OnVoteCallback;
-  }) => void;
-};
 
 export const waseful: Waseful = {
   render: ({ selector, apiClient = api, onVote }) => {
@@ -28,13 +11,14 @@ export const waseful: Waseful = {
       selector,
       clean: true,
       defaultProps: {
-        onVote: async ({ isUseful, sessionID }: FeedbackVote) => {
-          await apiClient.feedbackVote({
-            sessionID,
-            isUseful,
-          });
+        onVote: async (postFeedback: Feedback) => {
+          await apiClient.postFeedback(postFeedback);
 
-          onVote?.({ isUseful });
+          onVote?.(postFeedback);
+        },
+
+        onReasonSubmit: async (reasons: ReasonAnswer) => {
+          await apiClient.postReason(reasons);
         },
       },
     });
