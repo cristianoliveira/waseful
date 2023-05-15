@@ -21,7 +21,7 @@
   "scripts": {
     "serve": "parcel ./index.html --https -p 8081",
     "dev": "npm run serve",
-    "build": "parcel build",
+    "build": "tsc && parcel build",
     "lint": "eslint '{src,tests}/**/*.{ts,tsx}'",
     "test": "vitest run",
     "tsc": "tsc"
