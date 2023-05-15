@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event";
 import Widget from "./Widget";
 
 describe("Feedback Widget", () => {
-  const defaultProps = { onVote: vi.fn() };
+  const defaultProps = { onVote: vi.fn(), onReasonSubmit: vi.fn() };
 
   it("renders buttons to vote", () => {
     const props = { ...defaultProps };
