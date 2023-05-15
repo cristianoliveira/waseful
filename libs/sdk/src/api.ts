@@ -1,5 +1,9 @@
 import fetch from "unfetch";
-const { API_URL } = process.env;
+const { API_URL = null } = process.env;
+
+if (!API_URL) {
+  throw new Error("Missing environment variable API_URL.");
+}
 
 class ApiError extends Error {
   constructor(message: string) {
