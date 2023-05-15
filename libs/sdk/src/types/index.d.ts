@@ -15,13 +15,13 @@ type WasefulApi = {
 };
 
 type OnVoteCallback = (opts: Feedback) => void;
-type OnReasonSubmit = (opts: FeedbackReason) => void;
+type OnReasonSubmitCallback = (opts: FeedbackReason) => void;
 
 type Waseful = {
   render: (opts: {
     selector: string;
     apiClient: WasefulApi;
     onVote?: OnVoteCallback;
-    onReasonSubmit?: OnReasonSubmit;
+    onReasonSubmit?: OnReasonSubmitCallback;
   }) => void;
 };

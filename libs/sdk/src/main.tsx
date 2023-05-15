@@ -6,7 +6,7 @@ import Widget from "./Widget";
 const widget = habitat(Widget);
 
 export const waseful: Waseful = {
-  render: ({ selector, apiClient = api, onVote }) => {
+  render: ({ selector, apiClient = api, onVote, onReasonSubmit }) => {
     widget.render({
       selector,
       clean: true,
@@ -19,6 +19,8 @@ export const waseful: Waseful = {
 
         onReasonSubmit: async (reasons: FeedbackReason) => {
           await apiClient.postReason(reasons);
+
+          onReasonSubmit?.(reasons);
         },
       },
     });
