@@ -36,12 +36,13 @@ const ReasonsForm = ({ sessionID, onSubmit }: ReasonsFormProps) => {
   };
 
   return (
-    <div>
+    <div data-testid="reasons-form">
       <h3>What is wrong with this page?</h3>
       <form onSubmit={handleFormSubmit}>
         <div style={`margin-bottom: 10px;`}>
           <div>
             <input
+              data-testid="reason-not-accurate"
               onChange={handleOnChangeReason}
               type="radio"
               value={Reason.notAccurate}
@@ -51,6 +52,7 @@ const ReasonsForm = ({ sessionID, onSubmit }: ReasonsFormProps) => {
           </div>
           <div>
             <input
+              data-testid="reason-missing-info"
               onChange={handleOnChangeReason}
               type="radio"
               value={Reason.missingInfo}
@@ -60,6 +62,7 @@ const ReasonsForm = ({ sessionID, onSubmit }: ReasonsFormProps) => {
           </div>
           <div>
             <input
+              data-testid="reason-too-complicated"
               onChange={handleOnChangeReason}
               type="radio"
               value={Reason.tooComplicated}
@@ -69,6 +72,7 @@ const ReasonsForm = ({ sessionID, onSubmit }: ReasonsFormProps) => {
           </div>
           <div>
             <input
+              data-testid="reason-incorrect-examples"
               onChange={handleOnChangeReason}
               type="radio"
               value={Reason.incorrectExamples}
@@ -78,6 +82,7 @@ const ReasonsForm = ({ sessionID, onSubmit }: ReasonsFormProps) => {
           </div>
           <div>
             <input
+              data-testid="reason-other"
               onChange={handleOnChangeReason}
               type="radio"
               value={Reason.other}
@@ -89,6 +94,7 @@ const ReasonsForm = ({ sessionID, onSubmit }: ReasonsFormProps) => {
             <div>
               <h3>Anything else or more info?</h3>
               <textarea
+                data-testid="reason-more-info"
                 name="more"
                 onChange={handleOnMoreInfoChange}
                 width="200"
@@ -96,7 +102,9 @@ const ReasonsForm = ({ sessionID, onSubmit }: ReasonsFormProps) => {
             </div>
           )}
         </div>
-        <button type="submit">Submit</button>
+        <button data-testid="reason-submit" type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );

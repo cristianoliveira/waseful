@@ -17,7 +17,7 @@ describe("Feedback Widget", () => {
     expect(screen.getByTestId("dislike-button")).toBeInTheDocument();
   });
 
-  it("allows to vote by clicking on the like or dislike button", async () => {
+  it("allows to vote by clicking on the like button", async () => {
     const props = { ...defaultProps, onVote: vi.fn() };
 
     render(<Widget {...props} />);
@@ -29,13 +29,40 @@ describe("Feedback Widget", () => {
       isUseful: true,
       sessionID: expect.any(String),
     });
+  });
+
+  it("allows to vote by clicking on the dislike button and give a reason", async () => {
+    const sessionID = "123";
+    const props = {
+      ...defaultProps,
+      sessionID,
+      onVote: vi.fn(),
+      onReasonSubmit: vi.fn(),
+    };
+
+    render(<Widget {...props} />);
 
     expect(screen.getByTestId("dislike-button")).toBeInTheDocument();
     await userEvent.click(screen.getByTestId("dislike-button"));
 
+    expect(screen.getByTestId("reasons-form")).toBeInTheDocument();
+    await userEvent.click(screen.getByTestId("reason-other"));
+    await userEvent.type(
+      screen.getByTestId("reason-more-info"),
+      "Some more info"
+    );
+
     expect(props.onVote).toHaveBeenCalledWith({
       isUseful: false,
-      sessionID: expect.any(String),
+      sessionID,
+    });
+
+    await userEvent.click(screen.getByTestId("reason-submit"));
+
+    expect(props.onReasonSubmit).toHaveBeenCalledWith({
+      sessionID,
+      reason: "other",
+      moreInfo: "Some more info",
     });
   });
 });

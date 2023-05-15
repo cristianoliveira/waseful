@@ -13,7 +13,8 @@
     "lint": "nx run-many -t lint",
     "api:serve": "nx run @waseful/api:serve",
     "api:db:migrate": "nx run @waseful/api:db:migrate",
-    "sdk:serve": "nx run @waseful/sdk:serve"
+    "sdk:serve": "nx run @waseful/sdk:serve",
+    "sdk:test": "nx run @waseful/sdk:test"
   },
   "author": "Cristian Oliveira",
   "license": "ISC",
