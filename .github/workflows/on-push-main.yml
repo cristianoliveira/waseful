@@ -1,0 +1,33 @@
+name: CD sdk.js on merge to main
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      API_URL: ${{ vars.API_URL }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: v18
+          cache: "npm"
+      - run: npm install
+      - run: npm run build
+
+      - name: Release sdk.js
+        uses: mostlytyped/s3-put-action@v1.0.0
+        env:
+          LOCAL_FILE: libs/sdk/dist/sdk.js
+          REMOTE_FILE: v1/sdk.js
+          AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
+          AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
