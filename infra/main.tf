@@ -32,7 +32,6 @@ module "webapp_sg" {
   name = "webapp_sg_withmodule"
 
   vpc_id = data.aws_vpc.webapp.id
-
   ingress_rules       = ["http-80-tcp", "http-8080-tcp", "ssh-tcp"]
   ingress_cidr_blocks = ["0.0.0.0/0"]
 

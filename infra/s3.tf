@@ -32,26 +32,20 @@ resource "aws_s3_bucket_public_access_block" "assets_bucket_public_access" {
 resource "aws_s3_bucket_policy" "assets_bucket_policy" {
   bucket = aws_s3_bucket.assets_bucket.id
 
-  policy = <<EOT
-  {
-    "Version": "2012-10-17",
-    "Statement": [
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
       {
-        "Sid": "PublicReadGetObject",
-        "Effect": "Allow",
-        "Principal": {
-          "AWS": "*"
-        },
-        "Action": [
-          "s3:GetObject"
-        ],
-        "Resource": [
+        Sid       = "CloudFront OAI S3 bucket access"
+        Effect    = "Allow"
+        Principal = { AWS = "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${aws_cloudfront_origin_access_identity.cf_s3_oai.id}" }
+        Action    = "s3:GetObject"
+        Resource  = [
           "arn:aws:s3:::${var.app_domain_name}/*"
         ]
-      }
+      },
     ]
-  }
-  EOT
+  })
 }
 
 # S3 bucket cors
@@ -70,4 +64,16 @@ resource "aws_s3_bucket_ownership_controls" "assets_bucket_acl_ownership" {
   rule {
     object_ownership = "BucketOwnerEnforced"
   }
+}
+
+data "local_file" "sdk_js" {
+  filename = "assets/dist/sdk.js"
+}
+
+# Upload sdk.js to the S3 bucket
+resource "aws_s3_object" "sdk_object" {
+  bucket = aws_s3_bucket.assets_bucket.id # Reference to the S3 bucket
+  key    = "v1/sdk.js"                   # File name in the bucket
+  content_type = "application/javascript"
+  content = data.local_file.sdk_js.content
 }
