@@ -38,3 +38,11 @@ npm run serve
 ```
 
 Visit https://localhost:8081
+
+## Built with
+
+- [Parcel](https://parceljs.org/) - The web application bundler used
+- [Prisma](https://www.prisma.io/) - The database used
+- [Vitest](https://vitest.netlify.app/) - The testing framework used
+- [Preact](https://preactjs.com/) - The web framework used
+- [Hosted at AWS S3](https://aws.amazon.com/) - The cloud platform used
