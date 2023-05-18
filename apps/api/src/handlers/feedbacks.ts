@@ -8,6 +8,13 @@ export const endpoint = "/feedbacks";
 export const post: RequestHandler = async (req, res) => {
   const { is_useful: isUseful, sessionID } = req.body;
 
+  if (!sessionID || typeof isUseful === "undefined") {
+    return res.status(400).json({
+      status: 400,
+      message: "Missing required fields.",
+    });
+  }
+
   try {
     const feedback = await prisma.feedbacks.create({
       data: {

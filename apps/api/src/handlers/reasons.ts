@@ -7,6 +7,13 @@ export const endpoint = "/reasons";
 export const post: RequestHandler = async (req, res) => {
   const { sessionID, reason, moreInfo } = req.body;
 
+  if (!sessionID || !reason) {
+    return res.status(400).json({
+      status: 400,
+      message: "Missing required fields.",
+    });
+  }
+
   try {
     const feedbackInfo = await prisma.feedback_details.create({
       data: {
