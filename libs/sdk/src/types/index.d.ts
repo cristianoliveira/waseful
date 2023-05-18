@@ -24,4 +24,6 @@ type Waseful = {
     onVote?: OnVoteCallback;
     onReasonSubmit?: OnReasonSubmitCallback;
   }) => void;
+
+  tag: string;
 };
