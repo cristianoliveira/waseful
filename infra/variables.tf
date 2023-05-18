@@ -19,7 +19,11 @@ variable "aws_access_key" {}
 variable "aws_secret_key" {}
 
 variable "app_domain_name" {
-  default = "waseful.io"
+  default = "example.io"
+}
+
+variable "api_domain_name" {
+  default = "apiexample.io"
 }
 
 variable "app_db_url" {

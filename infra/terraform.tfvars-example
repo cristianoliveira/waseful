@@ -7,3 +7,10 @@ aws_secret_key = ""
 
 app_image_tag = "app-v0.0.1"
 app_db_url = "mysql://root:root_password@db:3306/hilchfrei"
+
+aws_iam_user_arn = "arn:aws:iam::000000000000:your/user"
+
+app_image_tag = "app-v0_0_3"
+
+app_domain_name = "appsite.io"
+api_domain_name = "api.appsite.com"

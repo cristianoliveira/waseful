@@ -52,3 +52,17 @@ resource "aws_lb_target_group_attachment" "attachment_b" {
   target_id        = aws_instance.api_ins_b.id
   port             = 8080
 }
+
+resource "aws_lb_listener" "https_listener" {
+  load_balancer_arn = aws_lb.alb.arn
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = "${aws_acm_certificate_validation.cert.certificate_arn}"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.apis_tg.arn
+  }
+}
+
