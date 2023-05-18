@@ -3,8 +3,9 @@ resource "aws_instance" "api_ins" {
   instance_type = "t2.micro"
   key_name      = "api_key_pair"
 
-  subnet_id = module.main_vpc.private_subnets[0]
+  subnet_id = module.main_vpc.public_subnets[0]
   vpc_security_group_ids = [module.webapp_sg.security_group_id]
+  associate_public_ip_address = true
 
   iam_instance_profile = aws_iam_instance_profile.ecr_profile.name
 
@@ -18,7 +19,7 @@ resource "aws_instance" "api_ins" {
   })
 
   tags = {
-    Name = "webapp"
+    Name = "api_a"
   }
 }
 
@@ -27,8 +28,9 @@ resource "aws_instance" "api_ins_b" {
   instance_type = "t2.micro"
   key_name      = "api_key_pair"
 
-  subnet_id = module.main_vpc.private_subnets[1]
+  subnet_id = module.main_vpc.public_subnets[1]
   vpc_security_group_ids = [module.webapp_sg.security_group_id]
+  associate_public_ip_address = true
 
   iam_instance_profile = aws_iam_instance_profile.ecr_profile.name
 
