@@ -14,7 +14,8 @@
     "api:serve": "nx run @waseful/api:serve",
     "api:db:migrate": "nx run @waseful/api:db:migrate",
     "sdk:serve": "nx run @waseful/sdk:serve",
-    "sdk:test": "nx run @waseful/sdk:test"
+    "sdk:test": "nx run @waseful/sdk:test",
+    "dc:up": "docker-compose -f apps/api/docker-compose.yml up"
   },
   "author": "Cristian Oliveira",
   "license": "ISC",
