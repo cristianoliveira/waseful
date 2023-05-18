@@ -25,4 +25,6 @@ export const waseful: Waseful = {
       },
     });
   },
+
+  tag: process.env.SDK_TAG || "no-tag",
 };
