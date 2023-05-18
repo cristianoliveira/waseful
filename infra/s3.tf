@@ -66,14 +66,18 @@ resource "aws_s3_bucket_ownership_controls" "assets_bucket_acl_ownership" {
   }
 }
 
-data "local_file" "sdk_js" {
-  filename = "resources/dist/sdk.js"
-}
+
+# the upload is done by the github action
+# see ../.github/workflows/on-release.yml
+
+# data "local_file" "sdk_js" {
+#   filename = "resources/dist/sdk.js"
+# }
 
 # Upload sdk.js to the S3 bucket
-resource "aws_s3_object" "sdk_object" {
-  bucket = aws_s3_bucket.assets_bucket.id # Reference to the S3 bucket
-  key    = "v1/sdk.js"                   # File name in the bucket
-  content_type = "application/javascript"
-  content = data.local_file.sdk_js.content
-}
+# resource "aws_s3_object" "sdk_object" {
+#   bucket = aws_s3_bucket.assets_bucket.id # Reference to the S3 bucket
+#   key    = "v1/sdk.js"                   # File name in the bucket
+#   content_type = "application/javascript"
+#   content = data.local_file.sdk_js.content
+# }
