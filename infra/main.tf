@@ -1,7 +1,7 @@
 resource "aws_instance" "api_ins" {
   ami           = "ami-0fcf52bcf5db7b003" # Ubuntu 20.04 LTS // us-east-1
   instance_type = "t2.micro"
-  key_name      = "webapp_key"
+  key_name      = "api_key_pair"
 
   subnet_id = module.main_vpc.private_subnets[0]
   vpc_security_group_ids = [module.webapp_sg.security_group_id]
@@ -25,7 +25,7 @@ resource "aws_instance" "api_ins" {
 resource "aws_instance" "api_ins_b" {
   ami           = "ami-0fcf52bcf5db7b003" # Ubuntu 20.04 LTS // us-east-1
   instance_type = "t2.micro"
-  key_name      = "webapp_key"
+  key_name      = "api_key_pair"
 
   subnet_id = module.main_vpc.private_subnets[1]
   vpc_security_group_ids = [module.webapp_sg.security_group_id]
@@ -42,36 +42,6 @@ resource "aws_instance" "api_ins_b" {
   })
 
   tags = {
-    Name = "webapp"
+    Name = "api_b"
   }
-}
-
-module "webapp_sg" {
-  source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 4.0"
-
-  name = "webapp_sg_withmodule"
-
-  vpc_id   = module.main_vpc.vpc_id
-  ingress_rules       = ["http-80-tcp", "http-8080-tcp"]
-  ingress_cidr_blocks = ["0.0.0.0/0"]
-
-  egress_rules       = ["all-all"]
-  egress_cidr_blocks = ["0.0.0.0/0"]
-}
-
-resource "aws_key_pair" "aws_kp" {
-  key_name   = "webapp_key"
-  public_key = data.local_file.aws_pub_key.content
-}
-
-# In case you want to ssh to your instance
-#
-# Add the follow rule to main_sg module
-#   ingress_rules = ["ssh-tcp"]
-#
-# Genetare a key pair `ssh-keygen -t ed25519 -C "mail@example"`
-# inside of the `./.ssh/` folder and name it "aws"
-data "local_file" "aws_pub_key" {
-  filename = ".ssh/aws.pub"
 }

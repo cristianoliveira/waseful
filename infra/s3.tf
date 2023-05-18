@@ -67,7 +67,7 @@ resource "aws_s3_bucket_ownership_controls" "assets_bucket_acl_ownership" {
 }
 
 data "local_file" "sdk_js" {
-  filename = "assets/dist/sdk.js"
+  filename = "resources/dist/sdk.js"
 }
 
 # Upload sdk.js to the S3 bucket
