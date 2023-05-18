@@ -1,15 +1,16 @@
 name: Build artefacts and deploy on release creation
 
 on:
-  release:
-    types: [published]
+  # release:
+  #   types: [published]
+  push:
+    branches: ["ci/allows-api-deploy"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     env:
-      SDK_TAG: ${{ github.ref_name }}
       API_URL: ${{ vars.API_URL }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -21,33 +22,36 @@ jobs:
         run: |
           echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
           echo "Tag name from github.ref_name: ${{ github.ref_name }}"
+          echo "RELEASE_TAG=${GITHUB_REF_NAME//-/_}" >> $GITHUB_ENV
 
-      - name: Use Node.js v18
-        uses: actions/setup-node@v3
-        with:
-          node-version: v18
-          cache: "npm"
+      # - name: Use Node.js v18
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: v18
+      #     cache: "npm"
 
-      - run: npm install
-      - run: npm run build
-      - run: npm run test
+      - run: echo "tag ${{ env.RELEASE_TAG }}"
+      # - run: npm install
+      # - run: npm run build
+      # - run: npm run test
 
-      - name: Release sdk.js
-        uses: mostlytyped/s3-put-action@v1.0.0
-        env:
-          LOCAL_FILE: libs/sdk/dist/sdk.js
-          REMOTE_FILE: v1/sdk.js
-          AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
-          AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
+      # - name: Release sdk.js
+      #   uses: mostlytyped/s3-put-action@v1.0.0
+      #   env:
+      #     SDK_TAG: ${{ env.RELEASE_TAG }}
+      #     LOCAL_FILE: libs/sdk/dist/sdk.js
+      #     REMOTE_FILE: v1/sdk.js
+      #     AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
+      #     AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
 
-      - name: Release api tag
-        uses: kciter/aws-ecr-action@v3
-        with:
-          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          account_id: ${{ secrets.AWS_ACCOUNT_ID }}
-          repo: ${{ secrets.AWS_ECR_REPO_NAME }}
-          region: ${{ secrets.AWS_REGION }}
-          tags: ${{ github.ref_name }}
-          dockerfile: "apps/api/Dockerfile"
-          path: "apps/api"
+      # - name: Release api tag
+      #   uses: kciter/aws-ecr-action@v3
+      #   with:
+      #     access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+      #     repo: ${{ secrets.AWS_ECR_REPO_NAME }}
+      #     region: ${{ secrets.AWS_REGION }}
+      #     tags: ${{ env.RELEASE_TAG }}
+      #     dockerfile: "apps/api/Dockerfile"
+      #     path: "apps/api"
