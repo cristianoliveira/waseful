@@ -1,25 +1,40 @@
-# hilchfrei
+# Waseful SDK
 
-## CLI Commands
+Get pages feedback from your users in a simple way.
 
-```bash
-# install dependencies
-npm install
+### Usage
 
-# serve demo with hot reload at localhost:8080
-npm run dev
+Add the following script tag to your HTML page:
 
-# build npm ready bundles to be consumed by other Preact web apps
-npm run build:widget
-
-# build npm ready bundles to be used as a component library
-npm run build:lib
-
-# lint the project with eslint to find code style issues
-npm run lint
-
-# run tests with vitest
-npm run test
+```html
+<script async charset="utf-8">
+  function onLoad() {
+    waseful.render({
+      selector: "#hilfreich",
+    });
+  }
+</script>
+<script
+  type="module"
+  onload="onLoad()"
+  src="https://diwb7ye69az6s.cloudfront.net/sdk.js"
+  type="text/javascript"
+/>
 ```
 
-For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/preactjs/preact-cli/blob/master/README.md).
+## Getting Started
+
+This section contains instructions for getting started with the SDK.
+
+### Prerequisites
+
+- [npm](https://www.npmjs.com/get-npm)
+
+### Installation
+
+```sh
+npm i
+npm run serve
+```
+
+Visit https://localhost:8081
