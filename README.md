@@ -14,15 +14,31 @@ npm run build
 And then run the individual workspaces
 
 ```bash
-npm run api:db:migrate
-npm run api:serve
-
 npm run sdk:serve
 ```
 
+Run the API on docker
+
+```bash
+npm run dc:up
+```
+
+As an alternative, first set up your database and set in `apps/api/.env` then
+
+```bash
+npm run api:db:migrate
+npm run api:serve
+```
+
+## See more
+
+- [API](https://github.com/cristianoliveira/waseful/tree/main/apps/api#waseful-api)
+- [SDK](https://github.com/cristianoliveira/waseful/tree/main/libs/sdk#waseful-sdk)
+- [Infra](https://github.com/cristianoliveira/waseful/tree/main/infra#waseful-infra)
+
 ## Deploying
 
-Deploy your own of Waseful instance to AWS.
+Deploy your own instance of Waseful to AWS.
 
 See: `infra/terraform.tfvars-example`
 
