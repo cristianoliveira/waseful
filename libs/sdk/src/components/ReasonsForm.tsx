@@ -36,7 +36,7 @@ const ReasonsForm = ({ sessionID, onSubmit }: ReasonsFormProps) => {
   };
 
   return (
-    <div data-testid="reasons-form">
+    <div id="waseful-reasons-form" data-testid="reasons-form">
       <h3>What is wrong with this page?</h3>
       <form onSubmit={handleFormSubmit}>
         <div style={`margin-bottom: 10px;`}>

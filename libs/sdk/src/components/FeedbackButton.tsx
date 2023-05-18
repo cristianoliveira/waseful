@@ -4,7 +4,7 @@ type FeedbackButtonProps = {
 
 const FeedbackButton = ({ onVote }: FeedbackButtonProps) => {
   return (
-    <div>
+    <div id="waseful-vote-buttons-container">
       <button
         data-testid="like-button"
         onClick={() => {

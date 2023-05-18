@@ -40,7 +40,7 @@ export default function Widget({
   };
 
   return (
-    <div>
+    <div id="waseful-container">
       {!vote && <FeedbackButton onVote={handleVote} />}
       {vote === Vote.NotUseful && (
         <ReasonsForm sessionID={sessionID} onSubmit={handleReasonSubmit} />
