@@ -20,12 +20,12 @@ resource "aws_lb_target_group" "apis_tg" {
 
   health_check {
     enabled             = true
-    interval            = 30
-    path                = "/feedbacks"
+    interval            = 140
+    path                = "/health-check"
     port                = "8080"
-    timeout             = 3
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
+    timeout             = 120
+    healthy_threshold   = 5
+    unhealthy_threshold = 5
     matcher             = "200"
   }
 }
