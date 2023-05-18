@@ -1,11 +1,6 @@
 name: Build artefacts and deploy on release creation
 
 on:
-  workflow_dispatch:
-
-  push:
-    branches: ["ci/allows-api-deploy"]
-
   release:
     types: [published]
 
@@ -26,8 +21,24 @@ jobs:
         run: |
           echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
           echo "Tag name from github.ref_name: ${{ github.ref_name }}"
-          ls -la
-          cat apps/api/Dockerfile
+
+      - name: Use Node.js v18
+        uses: actions/setup-node@v3
+        with:
+          node-version: v18
+          cache: "npm"
+
+      - run: npm install
+      - run: npm run build
+      - run: npm run test
+
+      - name: Release sdk.js
+        uses: mostlytyped/s3-put-action@v1.0.0
+        env:
+          LOCAL_FILE: libs/sdk/dist/sdk.js
+          REMOTE_FILE: v1/sdk.js
+          AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
+          AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
 
       - name: Release api tag
         uses: kciter/aws-ecr-action@v3
@@ -37,6 +48,6 @@ jobs:
           account_id: ${{ secrets.AWS_ACCOUNT_ID }}
           repo: ${{ secrets.AWS_ECR_REPO_NAME }}
           region: ${{ secrets.AWS_REGION }}
-          tags: ${{ github.sha }}
+          tags: ${{ github.ref_name }}
           dockerfile: "apps/api/Dockerfile"
           path: "apps/api"
