@@ -3,9 +3,8 @@ resource "aws_instance" "api_ins" {
   instance_type = "t2.micro"
   key_name      = "webapp_key"
 
-  subnet_id = module.main_vpc.public_subnets[0]
+  subnet_id = module.main_vpc.private_subnets[0]
   vpc_security_group_ids = [module.webapp_sg.security_group_id]
-  associate_public_ip_address = true
 
   iam_instance_profile = aws_iam_instance_profile.ecr_profile.name
 
@@ -28,9 +27,8 @@ resource "aws_instance" "api_ins_b" {
   instance_type = "t2.micro"
   key_name      = "webapp_key"
 
-  subnet_id = module.main_vpc.public_subnets[1]
+  subnet_id = module.main_vpc.private_subnets[1]
   vpc_security_group_ids = [module.webapp_sg.security_group_id]
-  associate_public_ip_address = true
 
   iam_instance_profile = aws_iam_instance_profile.ecr_profile.name
 
@@ -55,7 +53,7 @@ module "webapp_sg" {
   name = "webapp_sg_withmodule"
 
   vpc_id   = module.main_vpc.vpc_id
-  ingress_rules       = ["http-80-tcp", "http-8080-tcp", "ssh-tcp"]
+  ingress_rules       = ["http-80-tcp", "http-8080-tcp"]
   ingress_cidr_blocks = ["0.0.0.0/0"]
 
   egress_rules       = ["all-all"]
@@ -68,6 +66,10 @@ resource "aws_key_pair" "aws_kp" {
 }
 
 # In case you want to ssh to your instance
+#
+# Add the follow rule to main_sg module
+#   ingress_rules = ["ssh-tcp"]
+#
 # Genetare a key pair `ssh-keygen -t ed25519 -C "mail@example"`
 # inside of the `./.ssh/` folder and name it "aws"
 data "local_file" "aws_pub_key" {
