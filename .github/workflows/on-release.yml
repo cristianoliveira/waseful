@@ -26,21 +26,23 @@ jobs:
           echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
           echo "Tag name from github.ref_name: ${{ github.ref_name }}"
 
-      # - name: Use Node.js v18
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: v18
-      #     cache: "npm"
-      # - run: npm install
-      # - run: npm run build
+      - name: Use Node.js v18
+        uses: actions/setup-node@v3
+        with:
+          node-version: v18
+          cache: "npm"
 
-      # - name: Release sdk.js
-      #   uses: mostlytyped/s3-put-action@v1.0.0
-      #   env:
-      #     LOCAL_FILE: libs/sdk/dist/sdk.js
-      #     REMOTE_FILE: v1/sdk.js
-      #     AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
-      #     AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
+      - run: npm install
+      - run: npm run build
+      - run: npm run test
+
+      - name: Release sdk.js
+        uses: mostlytyped/s3-put-action@v1.0.0
+        env:
+          LOCAL_FILE: libs/sdk/dist/sdk.js
+          REMOTE_FILE: v1/sdk.js
+          AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
+          AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
 
       # - name: Release api
       #   uses: docker://ghcr.io/kciter/aws-ecr-action:latest
