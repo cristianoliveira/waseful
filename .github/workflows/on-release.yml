@@ -3,7 +3,7 @@ name: Build artefacts and deploy on release creation
 on:
   workflow_dispatch:
 
-  pull_request:
+  push:
     branches: ["ci/allows-api-deploy"]
 
   release:
