@@ -1,13 +1,36 @@
-data "aws_vpc" "webapp" {
-  default = true
-}
-
 resource "aws_instance" "api_ins" {
   ami           = "ami-0fcf52bcf5db7b003" # Ubuntu 20.04 LTS // us-east-1
   instance_type = "t2.micro"
   key_name      = "webapp_key"
 
+  subnet_id = module.main_vpc.public_subnets[0]
   vpc_security_group_ids = [module.webapp_sg.security_group_id]
+  associate_public_ip_address = true
+
+  iam_instance_profile = aws_iam_instance_profile.ecr_profile.name
+
+  user_data = templatefile("./tpls/setup.tpl.sh", {
+    description   = "foo bar"
+    aws_ecr_url   = var.aws_ecr_url
+    aws_region    = var.aws_region
+    app_image_tag = var.app_image_tag
+    app_db_url    = var.app_db_url
+    port          = "8080"
+  })
+
+  tags = {
+    Name = "webapp"
+  }
+}
+
+resource "aws_instance" "api_ins_b" {
+  ami           = "ami-0fcf52bcf5db7b003" # Ubuntu 20.04 LTS // us-east-1
+  instance_type = "t2.micro"
+  key_name      = "webapp_key"
+
+  subnet_id = module.main_vpc.public_subnets[1]
+  vpc_security_group_ids = [module.webapp_sg.security_group_id]
+  associate_public_ip_address = true
 
   iam_instance_profile = aws_iam_instance_profile.ecr_profile.name
 
@@ -31,7 +54,7 @@ module "webapp_sg" {
 
   name = "webapp_sg_withmodule"
 
-  vpc_id = data.aws_vpc.webapp.id
+  vpc_id   = module.main_vpc.vpc_id
   ingress_rules       = ["http-80-tcp", "http-8080-tcp", "ssh-tcp"]
   ingress_cidr_blocks = ["0.0.0.0/0"]
 
