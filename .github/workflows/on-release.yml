@@ -26,35 +26,17 @@ jobs:
         run: |
           echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
           echo "Tag name from github.ref_name: ${{ github.ref_name }}"
+          ls -la
+          cat apps/api/Dockerfile
 
-      - name: Use Node.js v18
-        uses: actions/setup-node@v3
+      - name: Release api tag
+        uses: kciter/aws-ecr-action@v3
         with:
-          node-version: v18
-          cache: "npm"
-
-      - run: npm install
-      - run: npm run build
-      - run: npm run test
-
-      - name: Release sdk.js
-        uses: mostlytyped/s3-put-action@v1.0.0
-        env:
-          LOCAL_FILE: libs/sdk/dist/sdk.js
-          REMOTE_FILE: v1/sdk.js
-          AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
-          AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
-
-      # - name: Release api
-      #   uses: docker://ghcr.io/kciter/aws-ecr-action:latest
-      #   with:
-      #     access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     account_id: ${{ secrets.AWS_ACCOUNT_ID }}
-      #     repo: ${{ secrets.AWS_ECR_REPO_NAME }}
-      #     region: ${{ secrets.AWS_REGION }}
-      #     tags: latest,${{ github.sha }}
-      #     create_repo: true
-      #     image_scanning_configuration: true
-      #     set_repo_policy: true
-      #     repo_policy_file: repo-policy.json
+          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+          repo: ${{ secrets.AWS_ECR_REPO_NAME }}
+          region: ${{ secrets.AWS_REGION }}
+          tags: ${{ github.sha }}
+          dockerfile: "apps/api/Dockerfile"
+          path: "apps/api"
