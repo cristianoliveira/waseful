@@ -1,6 +1,5 @@
 import { RequestHandler } from "express";
-import { Prisma, PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import { feedbackDetails, CODE_ERRORS } from "../models";
 
 export const endpoint = "/reasons";
 
@@ -15,7 +14,7 @@ export const post: RequestHandler = async (req, res) => {
   }
 
   try {
-    const feedbackInfo = await prisma.feedback_details.create({
+    const feedbackInfo = await feedbackDetails().create({
       data: {
         sessionID,
         reason,
@@ -25,12 +24,10 @@ export const post: RequestHandler = async (req, res) => {
 
     res.json(feedbackInfo);
   } catch (err) {
-    if (err instanceof Prisma.PrismaClientKnownRequestError) {
-      if (err.code === "P2002") {
-        return res
-          .status(409)
-          .json({ status: 409, message: "This session has already voted." });
-      }
+    if (err.code === CODE_ERRORS.DUPLICATED) {
+      return res
+        .status(409)
+        .json({ status: 409, message: "This session has already voted." });
     }
 
     res.status(500).json({
