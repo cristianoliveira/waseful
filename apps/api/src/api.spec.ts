@@ -56,5 +56,60 @@ describe("api", () => {
         })
         .expect(200);
     });
+
+    it("returns 500 for unknown errors", async () => {
+      const targetFunc = models.feedbacks();
+      vi.spyOn(targetFunc, "create").mockRejectedValueOnce(new Error("error"));
+      await request(api)
+        .post("/feedbacks")
+        .send({
+          is_useful: true,
+          sessionID: "123",
+        })
+        .expect(500);
+    });
+  });
+
+  describe("reasons", () => {
+    it("returns 400 when missing required fields", async () => {
+      await request(api).post("/reasons").expect(400);
+    });
+
+    it("returns 200 when is possible to create", async () => {
+      const feedbackDetailsFun = models.feedbackDetails();
+      vi.spyOn(feedbackDetailsFun, "create").mockResolvedValueOnce({
+        sessionID: "dawa",
+        reason: "other",
+        moreInfo: "foo bar",
+      } as any);
+
+      await request(api)
+        .post("/reasons")
+        .send({
+          reason: "other",
+          moreInfo: "foo bar",
+          sessionID: "123",
+        })
+        .send({
+          reason: "reason",
+          feedbackId: 1,
+        })
+        .expect(200);
+    });
+
+    it("returns 500 for unknown errors", async () => {
+      const feedbackDetailsFun = models.feedbackDetails();
+      vi.spyOn(feedbackDetailsFun, "create").mockRejectedValueOnce(
+        new Error("error")
+      );
+      await request(api)
+        .post("/reasons")
+        .send({
+          reason: "other",
+          moreInfo: "foo bar",
+          sessionID: "123",
+        })
+        .expect(500);
+    });
   });
 });
