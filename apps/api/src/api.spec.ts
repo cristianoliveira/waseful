@@ -36,7 +36,7 @@ describe("api", () => {
       await request(api)
         .post("/feedbacks")
         .send({
-          is_useful: true,
+          isUseful: true,
           sessionID: "123",
         })
         .expect(409);
@@ -51,7 +51,7 @@ describe("api", () => {
       await request(api)
         .post("/feedbacks")
         .send({
-          is_useful: true,
+          isUseful: true,
           sessionID: "123",
         })
         .expect(200);
