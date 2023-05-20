@@ -5,7 +5,7 @@ import { feedbacks, CODE_ERRORS } from "../models";
 export const endpoint = "/feedbacks";
 
 export const post: RequestHandler = async (req, res) => {
-  const { is_useful: isUseful, sessionID } = req.body;
+  const { isUseful, sessionID } = req.body;
 
   if (!sessionID || typeof isUseful === "undefined") {
     return res.status(400).json({

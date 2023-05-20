@@ -4,5 +4,5 @@
 # list here all the events and the commands that it should execute
 
 - name: run my build
-  run: "npm run build"
+  run: "npm run build && npm run lint"
   change: ["apps/**", "libs/**"]
