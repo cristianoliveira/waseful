@@ -63,7 +63,7 @@ describe("api", () => {
       await request(api)
         .post("/feedbacks")
         .send({
-          is_useful: true,
+          isUseful: true,
           sessionID: "123",
         })
         .expect(500);
@@ -89,10 +89,6 @@ describe("api", () => {
           reason: "other",
           moreInfo: "foo bar",
           sessionID: "123",
-        })
-        .send({
-          reason: "reason",
-          feedbackId: 1,
         })
         .expect(200);
     });
