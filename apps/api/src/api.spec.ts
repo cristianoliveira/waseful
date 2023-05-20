@@ -7,6 +7,7 @@ import api from "./api";
 describe("api", () => {
   describe("health-check", () => {
     it("returns 200 and status ok when healthy", async () => {
+      vi.spyOn(models, "rawQuery").mockResolvedValueOnce(2);
       await request(api)
         .get("/health-check")
         .expect(200)
@@ -42,9 +43,10 @@ describe("api", () => {
     });
 
     it("returns 200 when is possible to create", async () => {
-      vi.spyOn(models, "feedbacks").mockImplementationOnce(() => ({
-        create: () => ({ id: 1 }),
-      }));
+      const feedbacksFun = models.feedbacks();
+      vi.spyOn(feedbacksFun, "create").mockResolvedValueOnce({
+        id: 1,
+      } as any);
 
       await request(api)
         .post("/feedbacks")
