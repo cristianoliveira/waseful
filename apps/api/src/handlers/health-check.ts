@@ -1,16 +1,20 @@
 import { RequestHandler } from "express";
-import { Prisma, PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+import { rawQuery } from "../models";
 
 export const endpoint = "/health-check";
 
 export const get: RequestHandler = async (_, res) => {
-  await prisma.$queryRaw<
-    Prisma.PromiseReturnType<typeof prisma.$executeRaw>
-  >`SELECT 1+1;`;
+  try {
+    await rawQuery`SELECT 1+1;`;
 
-  res.status(200).send({
-    status: "ok",
-  });
+    res.status(200).send({
+      status: "ok",
+    });
+  } catch (e) {
+    res.status(500).send({
+      status: "error",
+      message: e.message,
+    });
+  }
 };

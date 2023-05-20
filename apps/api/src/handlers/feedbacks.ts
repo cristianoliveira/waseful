@@ -1,7 +1,6 @@
 import { RequestHandler } from "express";
-import { Prisma, PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+import { feedbacks, CODE_ERRORS } from "../models";
 
 export const endpoint = "/feedbacks";
 
@@ -16,7 +15,7 @@ export const post: RequestHandler = async (req, res) => {
   }
 
   try {
-    const feedback = await prisma.feedbacks.create({
+    const feedback = await feedbacks().create({
       data: {
         sessionID,
         isUseful,
@@ -25,12 +24,10 @@ export const post: RequestHandler = async (req, res) => {
 
     res.json(feedback);
   } catch (err) {
-    if (err instanceof Prisma.PrismaClientKnownRequestError) {
-      if (err.code === "P2002") {
-        return res
-          .status(409)
-          .json({ status: 409, message: "This session has already voted." });
-      }
+    if (err.code === CODE_ERRORS.DUPLICATED) {
+      return res
+        .status(409)
+        .json({ status: 409, message: "This session has already voted." });
     }
 
     res.status(500).json({
@@ -41,6 +38,6 @@ export const post: RequestHandler = async (req, res) => {
 };
 
 export const get: RequestHandler = async (_, res) => {
-  const feedbacks = await prisma.feedbacks.findMany();
-  res.json(feedbacks);
+  const feedbackRes = await feedbacks().findMany();
+  res.json(feedbackRes);
 };
